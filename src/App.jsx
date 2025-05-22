@@ -1,88 +1,41 @@
-import { useState } from "react";
-import axios from "axios";
-
-const WEBHOOK_URL = import.meta.env.VITE_DISCORD_WEBHOOK;
+import React from 'react'
 
 export default function App() {
-  const [formData, setFormData] = useState({
-    name: "",
-    age: "",
-    question1: "",
-    question2: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const message = `
-**نموذج جديد تم تقديمه:**
-👤 الاسم: ${formData.name}
-🎂 العمر: ${formData.age}
-❓ السؤال 1: ${formData.question1}
-❓ السؤال 2: ${formData.question2}
-    `;
-
-    try {
-      await axios.post(WEBHOOK_URL, {
-        content: message,
-      });
-      alert("تم إرسال النموذج بنجاح إلى Discord ✅");
-    } catch (error) {
-      alert("فشل في الإرسال ❌");
-      console.error(error);
-    }
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md space-y-4">
-        <h1 className="text-xl font-bold">نموذج تقديم</h1>
+    <div className="min-h-screen bg-gray-100 text-gray-800">
+      <header className="bg-blue-900 text-white p-4 text-center text-xl font-bold shadow">
+        Los Santos Police Department
+      </header>
 
-        <input
-          type="text"
-          name="name"
-          placeholder="الاسم"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-        <input
-          type="number"
-          name="age"
-          placeholder="العمر"
-          value={formData.age}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-        <input
-          type="text"
-          name="question1"
-          placeholder="لماذا تريد الانضمام؟"
-          value={formData.question1}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-        <input
-          type="text"
-          name="question2"
-          placeholder="ما هي خبرتك؟"
-          value={formData.question2}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
+      <main className="p-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <section className="md:col-span-2 space-y-4">
+            <div className="bg-white rounded shadow p-4">
+              <h2 className="text-lg font-semibold border-b pb-2 mb-2">Welcome Center</h2>
+              <p>Information and announcements for new members.</p>
+            </div>
+            <div className="bg-white rounded shadow p-4">
+              <h2 className="text-lg font-semibold border-b pb-2 mb-2">Recruitment</h2>
+              <p>Apply to join the LSPD or view recruitment guidelines.</p>
+            </div>
+          </section>
 
-        <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-          إرسال
-        </button>
-      </form>
+          <aside className="space-y-4">
+            <div className="bg-white rounded shadow p-4">
+              <h3 className="text-md font-semibold mb-2">Quick Links</h3>
+              <ul className="space-y-1 text-sm">
+                <li><a href="#" className="text-blue-600 hover:underline">Join Us</a></li>
+                <li><a href="#" className="text-blue-600 hover:underline">Rules</a></li>
+                <li><a href="#" className="text-blue-600 hover:underline">Support</a></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <footer className="bg-gray-800 text-white text-center text-sm p-4 mt-10">
+        © 2025 Los Santos Police Department. All rights reserved.
+      </footer>
     </div>
-  );
+  )
 }
